@@ -15,12 +15,15 @@ make clean
 
 # build
 echo "\n### Building release build..."
-emmake make
+EMSCRIPTEN3=1 emmake make
 
 cd ..
+test ./src/build/release/bin/minisat.html && \
+ cp ./src/build/release/bin/minisat.html ./release/minisat.html || {
 cp ./src_js/Wrapper.js ./release/Wrapper.js
 cp ./src/build/release/bin/minisat.js ./release/minisat.js
 cp ./src/build/release/bin/minisat.wasm ./release/minisat.wasm
+}
 
 # optionally build and run demo web app
 if [ -n "$1" -a "$1" = "demo" ]
